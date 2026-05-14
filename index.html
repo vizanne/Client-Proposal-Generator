@@ -681,13 +681,11 @@
       <input type="number" id="estimatedHours" placeholder="e.g. 20" oninput="save()">
     </div>
     <div class="field">
-      <label>Deposit Required (%)</label>
-      <select id="deposit" onchange="save()">
-        <option value="0">No deposit required</option>
-        <option value="25">25% upfront</option>
-        <option value="50" selected>50% upfront</option>
-        <option value="100">100% upfront</option>
-      </select>
+      <label>Deposit Required (%) <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:11px;color:var(--ink-muted)">— type any amount, or 0 for none</span></label>
+      <div style="position:relative;display:flex;align-items:center;">
+        <input type="number" id="deposit" min="0" max="100" step="1" placeholder="e.g. 50" oninput="save()" style="padding-right:36px;">
+        <span style="position:absolute;right:14px;font-size:15px;font-weight:600;color:var(--ink-muted);pointer-events:none;">%</span>
+      </div>
     </div>
   </div>
 
@@ -961,7 +959,7 @@
       html += `<div class="inv-row highlight"><span class="inv-key">Amount Due</span><span class="inv-val accent">$${totalCalc.toLocaleString()}</span></div>`;
     }
 
-    html += `<div class="inv-row"><span class="inv-key">Payment Terms</span><span class="inv-val">${depPct > 0 ? depPct + '% upfront · remainder on delivery' : 'Due on completion'}</span></div>`;
+    html += `<div class="inv-row"><span class="inv-key">Payment Terms</span><span class="inv-val">${depPct > 0 ? depPct + '% deposit upfront · remainder on delivery' : 'Full amount due on completion'}</span></div>`;
     html += `</div></div>`;
 
     if (test) {
